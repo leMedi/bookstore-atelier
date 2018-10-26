@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:shiro="http://shiro.apache.org/tags"
+                template="#{layout.template}">
+
+  <ui:define name="body">
+    <shiro:user>
+      <p:toolbar>
+        <f:facet name="left">
+          <shiro:hasPermission name="BOOKS:CREATE">
+            <p:button value="New Book" outcome="new-book.xhtml" icon="ui-icon-document"/>
+          </shiro:hasPermission>
+          <shiro:hasPermission name="BOOKS:DELETE">
+            <span class="ui-separator">
+                <span class="ui-icon ui-icon-grip-dotted-vertical"/>
+            </span>
+            <p:commandButton title="Delete" icon="ui-icon-trash" id="deleteButton"
+                             actionListener="#{listBooksController.deleteBooks()}" update="booksDT"
+                             disabled="#{empty listBooksController.selectedBooks or listBooksController.selectedBooks.size() == 0}">
+              <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
+            </p:commandButton>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+              <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes"
+                               icon="ui-icon-check"/>
+              <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"
+                               icon="ui-icon-close"/>
+            </p:confirmDialog>
+          </shiro:hasPermission>
+        </f:facet>
+        <f:facet name="right">
+
+        </f:facet>
+      </p:toolbar>
+    </shiro:user>
+
+    <p:dataTable id="booksDT" var="book" value="#{listBooksController.books}"
+                 selection="#{listBooksController.selectedBooks}"
+                 rowKey="#{book.id}" reflow="true"
+                 style="margin-bottom:0">
+
+      <p:ajax event="rowSelectCheckbox" update="@(.ui-button, .ui-confirm-dialog)"/>
+      <p:ajax event="rowUnselectCheckbox" update="@(.ui-button, .ui-confirm-dialog)"/>
+
+      <f:facet name="header">
+        Books
+      </f:facet>
+      <shiro:hasPermission name="delete">
+        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+      </shiro:hasPermission>
+
+      <p:column headerText="Title" width="30%">
+        <h:outputText value="#{book.title}"/>
+      </p:column>
+      <p:column headerText="ISBN">
+        <h:outputText value="#{book.isbn}"/>
+      </p:column>
+      <p:column headerText="Publication Date">
+        <h:outputText value="#{book.publicationDate}">
+          <f:convertDateTime pattern="dd-MM-yyyy"/>
+        </h:outputText>
+      </p:column>
+      <p:column headerText="Language">
+        <h:outputText value="#{book.language}"/>
+      </p:column>
+
+      <shiro:hasPermission name="BOOKS:UPDATE">
+        <p:column headerText="Actions" width="5%">
+          <p:button outcome="edit-book" icon="ui-icon-pencil" title="Update">
+            <f:param name="book_id" value="#{book.id}"/>
+          </p:button>
+        </p:column>
+      </shiro:hasPermission>
+
+    </p:dataTable>
+  </ui:define>
+</ui:composition>
+
+
+

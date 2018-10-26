@@ -1,0 +1,11 @@
+.ui-toolbar {
+  background: none;
+  margin: 5px 0;
+}
+
+.ui-message-error {
+  background-color: transparent;
+  border: none;
+  padding: 2px 0;
+  margin: 0;
+}

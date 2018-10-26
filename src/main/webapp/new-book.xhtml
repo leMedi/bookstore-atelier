@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="#{layout.template}">
+  <ui:define name="body">
+
+    <ui:decorate template="book-form.xhtml">
+      <ui:param name="book" value="#{newBookController.book}"/>
+      <ui:param name="actionBean" value="#{newBookController}"/>
+      <ui:param name="action" value="save"/>
+    </ui:decorate>
+
+  </ui:define>
+</ui:composition>

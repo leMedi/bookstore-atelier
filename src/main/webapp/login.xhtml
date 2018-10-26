@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html" encoding="UTF-8">
+  <h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Login - BookStore</title>
+  </h:head>
+  <h:body>
+    <h:form id="login" prependId="false">
+      <p:panel header="Login - BookStore">
+        <p:growl id="messages" globalOnly="true"/>
+        <h:panelGrid columns="3">
+          <p:outputLabel for="username" value="Username"/>
+          <p:inputText id="username" value="#{loginController.username}" required="true">
+            <f:ajax event="blur" render="m_username"/>
+          </p:inputText>
+          <p:message id="m_username" for="username"/>
+
+          <p:outputLabel for="password" value="Password"/>
+          <p:password id="password" value="#{loginController.password}" required="true">
+            <f:ajax event="blur" render="m_password"/>
+          </p:password>
+          <p:message id="m_password" for="password"/>
+
+          <h:panelGroup/>
+          <p:selectBooleanCheckbox id="rememberMe" value="#{loginController.remember}"
+                                   itemLabel="Remember Me"/>
+          <h:panelGroup/>
+
+          <h:panelGroup/>
+          <p:commandButton value="Login" action="#{loginController.submit()}" update="messages">
+            <f:ajax execute="@form" render="@form"/>
+          </p:commandButton>
+        </h:panelGrid>
+
+      </p:panel>
+
+    </h:form>
+
+  </h:body>
+</f:view>
+</html>

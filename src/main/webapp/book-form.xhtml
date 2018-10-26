@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+  <p:importEnum type="com.hazy.bookstore.model.Language" var="languages" allSuffix="ALL"/>
+
+  <p:link outcome="index.xhtml" value="Home"/>
+
+  <div class="ui-fluid">
+    <div class="ui-g">
+
+      <div class="ui-g-12 ui-sm-12 ui-md-2">
+        <p:outputLabel for="title" value="Title"/>
+      </div>
+      <div class="ui-g-12 ui-sm-12 ui-md-10">
+        <p:inputText id="title" value="#{book.title}" required="true"/>
+        <p:message for="title" display="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-sm-12 ui-md-2">
+        <p:outputLabel for="isbn" value="ISBN"/>
+      </div>
+      <div class="ui-g-12 ui-sm-12 ui-md-10">
+        <p:inputText id="isbn" value="#{book.isbn}" required="true"/>
+        <p:message for="isbn" display="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-sm-12 ui-md-2">
+        <p:outputLabel for="publicationDate" value="Publication Date"/>
+      </div>
+      <div class="ui-g-12 ui-sm-12 ui-md-10">
+        <p:calendar id="publicationDate" value="#{book.publicationDate}"
+                    pattern="dd-MM-yyyy" navigator="true" showOn="button"/>
+        <p:message for="publicationDate" display="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-sm-12 ui-md-2">
+        <p:outputLabel for="nbOfPages" value="Number of Pages"/>
+      </div>
+      <div class="ui-g-12 ui-sm-12 ui-md-10">
+        <p:spinner id="nbOfPages" value="#{book.nbOfPages}" min="1"/>
+        <p:message for="nbOfPages" display="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-sm-12 ui-md-2">
+        <p:outputLabel for="language" value="Language"/>
+      </div>
+      <div class="ui-g-12 ui-sm-12 ui-md-10">
+        <p:selectOneMenu id="language" value="#{book.language}" required="true">
+          <f:selectItem itemLabel="---"/>
+          <f:selectItems value="#{languages.ALL}"/>
+        </p:selectOneMenu>
+        <p:message for="language" display="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-sm-12 ui-md-2">
+        <p:outputLabel for="description" value="Description"/>
+      </div>
+      <div class="ui-g-12 ui-sm-12 ui-md-10">
+        <p:inputTextarea id="description" value="#{book.description}"/>
+        <p:message for="description" display="text"/>
+      </div>
+
+      <div class="ui-g-12 ui-sm-12 ui-md-2"/>
+      <div class="ui-g-12 ui-sm-12 ui-md-10">
+        <p:commandButton value="Save" action="#{actionBean[action]}" icon="ui-icon-disk" ajax="false"/>
+      </div>
+
+    </div>
+  </div>
+
+</ui:composition>

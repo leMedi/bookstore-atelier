@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:shiro="http://shiro.apache.org/tags"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+  <title>Book Store</title>
+  <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body>
+  <p:panel header="Book Store">
+
+    <f:facet name="actions">
+      <div align="right">
+        <shiro:guest>
+          <p:commandLink value="Login" action="login.xhtml"/>
+        </shiro:guest>
+
+        <shiro:user>
+          Welcome, #{listBooksController.username}
+          (<p:commandLink value="Logout" action="#{logoutController.submit()}"/>)
+        </shiro:user>
+      </div>
+    </f:facet>
+
+    <h:form id="form">
+      <p:growl id="messages" globalOnly="true">
+        <p:autoUpdate/>
+      </p:growl>
+      <ui:insert name="body"/>
+    </h:form>
+
+  </p:panel>
+</h:body>
+</html>
